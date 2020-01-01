@@ -15,11 +15,15 @@ public class InputActivity extends AppCompatActivity {
     private Button save;
     private CheckBox len, sq;
     private EditText text;
+    private Double rad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+        Bundle arguments=getIntent().getExtras();
+        rad = arguments.getDouble("radius");
         text = findViewById(R.id.rad);
+        text.setText(rad.toString());
         sq= findViewById(R.id.square);
         len = findViewById(R.id.len);
         save=findViewById(R.id.save);
@@ -32,17 +36,20 @@ public class InputActivity extends AppCompatActivity {
                 try {
                     if (len.isChecked() && !sq.isChecked()) {
                         result_len = 2 * Math.PI * Double.parseDouble(text.getText().toString());
+                        data.putExtra("radius", text.getText().toString());
                         data.putExtra("result_len", Double.toString(result_len));
                         setResult(RESULT_OK, data);
                         finish();
                     } else if (sq.isChecked() && !len.isChecked()) {
                         result_sq = Math.PI * Double.parseDouble(text.getText().toString()) * Double.parseDouble(text.getText().toString());
+                        data.putExtra("radius", text.getText().toString());
                         data.putExtra("result_sq", Double.toString(result_sq));
                         setResult(RESULT_OK, data);
                         finish();
                     } else if (sq.isChecked() && len.isChecked()){
                         result_len = 2 * Math.PI * Double.parseDouble(text.getText().toString());
                         result_sq = Math.PI * Double.parseDouble(text.getText().toString()) * Double.parseDouble(text.getText().toString());
+                        data.putExtra("radius", text.getText().toString());
                         data.putExtra("result_sq", Double.toString(result_sq));
                         data.putExtra("result_len", Double.toString(result_len));
                         setResult(RESULT_OK, data);
