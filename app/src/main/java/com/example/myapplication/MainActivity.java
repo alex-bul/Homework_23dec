@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button exit, calc, input;
+    public Boolean check_sq, check_len;
     private Double result_sq, result_len, radius;
     private static final int REQUEST=1;
     @Override
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         exit = findViewById(R.id.exit);
         calc = findViewById(R.id.calc);
         input = findViewById(R.id.input);
+        check_len = false;
+        check_sq = false;
         result_len = 0.0;
         result_sq = 0.0;
         radius = 0.0;
@@ -33,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, InputActivity.class);
+                System.out.println(check_len);
+                System.out.println(check_sq);
                 intent.putExtra("radius", radius);
+                intent.putExtra("check_sq", check_sq);
+                intent.putExtra("check_len", check_len);
                 startActivityForResult(intent, REQUEST);
             }
         });
@@ -62,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 if (data.hasExtra("result_sq" )){
                     result_sq = Double.parseDouble(data.getStringExtra("result_sq"));
                 }
+                check_sq = data.getBooleanExtra("check_sq", false);
+                check_len = data.getBooleanExtra("check_len", false);
                 radius = Double.parseDouble(data.getStringExtra("radius"));
             }
             else Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();

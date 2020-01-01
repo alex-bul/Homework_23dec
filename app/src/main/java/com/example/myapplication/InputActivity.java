@@ -26,6 +26,8 @@ public class InputActivity extends AppCompatActivity {
         text.setText(rad.toString());
         sq= findViewById(R.id.square);
         len = findViewById(R.id.len);
+        sq.setChecked(arguments.getBoolean("check_sq"));
+        len.setChecked(arguments.getBoolean("check_len"));
         save=findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,8 @@ public class InputActivity extends AppCompatActivity {
                 double result_sq = 0;
                 double result_len = 0;
                 try {
+                    data.putExtra("check_sq", sq.isChecked());
+                    data.putExtra("check_len", len.isChecked());
                     if (len.isChecked() && !sq.isChecked()) {
                         result_len = 2 * Math.PI * Double.parseDouble(text.getText().toString());
                         data.putExtra("radius", text.getText().toString());
