@@ -38,7 +38,10 @@ public class InputActivity extends AppCompatActivity {
                 try {
                     data.putExtra("check_sq", sq.isChecked());
                     data.putExtra("check_len", len.isChecked());
-                    if (len.isChecked() && !sq.isChecked()) {
+                    if (Double.parseDouble(text.getText().toString()) <= 0){
+                        Toast.makeText(getApplicationContext(), "Радиус должен быть больше 0", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (len.isChecked() && !sq.isChecked()) {
                         result_len = 2 * Math.PI * Double.parseDouble(text.getText().toString());
                         data.putExtra("radius", text.getText().toString());
                         data.putExtra("result_len", Double.toString(result_len));
@@ -59,10 +62,10 @@ public class InputActivity extends AppCompatActivity {
                         setResult(RESULT_OK, data);
                         finish();
                     } else
-                        Toast.makeText(getApplicationContext(), "Error: Выберите хотя бы 1 тип результата", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Error: Выберите хотя бы 1 тип результата", Toast.LENGTH_SHORT).show();
                 }
                 catch (NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(), "Error: Введите число", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error: Введите число", Toast.LENGTH_SHORT).show();
                 }
 
             }
